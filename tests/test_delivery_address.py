@@ -1,6 +1,4 @@
-import requests
 from helpers.api_helper import request
-from decouple import config
 
 
 class TestDeliveryAddress:
