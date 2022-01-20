@@ -57,3 +57,10 @@ class CompareHelper:
             rout=f'/api/v1/compare/section/{sectionId}/{iblockId}',
             authorization=True)
 
+    @staticmethod
+    def delete_products(products):
+
+        return request(
+            method='DELETE',
+            rout=f'/api/v1/compare/products/{",".join(products)}',
+            authorization=True)
