@@ -6,8 +6,6 @@ import json
 class TestAddProductCompare:
     def setup_class(self):
         self.responce_delete = CompareHelper.delete_compare()
-        self.responce_add = CompareHelper.add_product("619098")
-        self.responce_add2 = CompareHelper.add_product("619045")
         self.responce_delete_product = CompareHelper.delete_product("619045")
         self.responce_get_section = CompareHelper.get_section()
         self.responce_get_section_list = CompareHelper.get_section_list()
@@ -16,7 +14,6 @@ class TestAddProductCompare:
             self.responce_get_all_products.json(),
             indent=5
         ))
-
         self.responce_delete_section = CompareHelper.delete_section("706", "59")
         products = ["619098", "619045"]
         self.responce_delete_products = CompareHelper.delete_products(products)
@@ -26,9 +23,7 @@ class TestAddProductCompare:
     def test_delete_compare(self):
         assert self.responce_delete.status_code == 200
 
-    # добавить товар в сравнение
-    def test_add_product(self):
-        assert self.responce_add.status_code == 200
+
 
     # удалить товар из сравнения (один товар)
     def test_delete_product(self):
