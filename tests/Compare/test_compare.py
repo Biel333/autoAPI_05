@@ -107,3 +107,7 @@ class TestCompareGet:
             self.responce_get_all_products.json(),
             indent=5
         ))
+
+    # очищение сравнения
+    def teardown_class(self):
+        CompareHelper.delete_compare()
