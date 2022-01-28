@@ -1,5 +1,4 @@
 from helpers.api_helper import request
-from decouple import config
 
 
 class CompareHelper:
@@ -8,22 +7,6 @@ class CompareHelper:
     def add_product(productId):
         return request(
             method='PUT',
-            rout=f'/api/v1/compare/{productId}?show_entity=',
-            authorization=True)
-
-    # очистить сравнение
-    @staticmethod
-    def delete_compare():
-        return request(
-            method='DELETE',
-            rout='/api/v1/compare',
-            authorization=True)
-
-    # удалить товар из сравнения (один товар)
-    @staticmethod
-    def delete_product(productId):
-        return request(
-            method='DELETE',
             rout=f'/api/v1/compare/{productId}?show_entity=',
             authorization=True)
 
@@ -43,6 +26,7 @@ class CompareHelper:
         rout='/api/v1/compare/sections',
         authorization=True)
 
+    # получить все товары из сравнения
     @staticmethod
     def get_all_products():
         return request(
@@ -50,6 +34,7 @@ class CompareHelper:
         rout='/api/v1/compare/products',
         authorization=True)
 
+    # удалить раздел
     @staticmethod
     def delete_section(sectionId, iblockId):
         return request(
@@ -57,10 +42,27 @@ class CompareHelper:
             rout=f'/api/v1/compare/section/{sectionId}/{iblockId}',
             authorization=True)
 
+    # удалить товары (несколько товаров)
     @staticmethod
     def delete_products(products):
 
         return request(
             method='DELETE',
             rout=f'/api/v1/compare/products/{",".join(products)}',
+            authorization=True)
+
+    # удалить товар из сравнения (один товар)
+    @staticmethod
+    def delete_product(productId):
+        return request(
+            method='DELETE',
+            rout=f'/api/v1/compare/{productId}?show_entity=',
+            authorization=True)
+
+    # очистить сравнение
+    @staticmethod
+    def delete_compare():
+        return request(
+            method='DELETE',
+            rout='/api/v1/compare',
             authorization=True)
