@@ -6,18 +6,18 @@ import json
 class TestCompareAdd:
     def setup_class(self):
         # добавление товаров  в сравнение
-        self.responce_add = CompareHelper.add_product("601520")
-        CompareHelper.add_product("619098")
+        self.response_add = CompareHelper.add_product("601520", auth=True)
+        CompareHelper.add_product("619098", auth=True)
 
-        self.responce_get_all_products = CompareHelper.get_all_products()
+        self.response_get_all_products = CompareHelper.get_all_products(auth=True)
 
     # тест добавить товар в сравнение
     def test_add_product(self):
-        assert self.responce_add.status_code == 200 and \
-               self.responce_get_all_products.json()["result"]["ITEMS"][0]["ID"] == "601520"
+        assert self.response_add.status_code == 200 and \
+               self.response_get_all_products.json()["result"]["ITEMS"][0]["ID"] == "601520"
 
         print(json.dumps(
-            self.responce_get_all_products.json(),
+            self.response_get_all_products.json(),
             indent=5
         ))
 
@@ -33,15 +33,15 @@ class TestDeleteCompare:
         CompareHelper.add_product("619045")
         CompareHelper.add_product("601520")
 
-        self.responce_delete_product = CompareHelper.delete_product("601520")
+        self.response_delete_product = CompareHelper.delete_product("601520")
         products = ["619098", "619045"]
-        self.responce_delete_products = CompareHelper.delete_products(products)
-        self.responce_delete_section = CompareHelper.delete_section("706", "59")
-        self.responce_delete = CompareHelper.delete_compare()
+        self.response_delete_products = CompareHelper.delete_products(products)
+        self.response_delete_section = CompareHelper.delete_section("706", "59")
+        self.response_delete = CompareHelper.delete_compare()
 
     # удалить товар из сравнения (один товар) #ЕСЛИ ТОВАР УЖЕ БЫЛ УДАЛЁН ВЫПАДЕТ ОШИБКА!
     def test_delete_product(self):
-        assert self.responce_delete_product.status_code == 200
+        assert self.response_delete_product.status_code == 200
         print(json.dumps(
             CompareHelper.get_all_products().json(),
             indent=5
@@ -49,7 +49,7 @@ class TestDeleteCompare:
 
     # удалить товары из сравнения (номера товаров через запятую)
     def test_delete_products(self):
-        assert self.responce_delete_products.status_code == 200
+        assert self.response_delete_products.status_code == 200
         print(json.dumps(
             CompareHelper.get_all_products().json(),
             indent=5
@@ -57,7 +57,7 @@ class TestDeleteCompare:
 
     # удалить раздел в сравнении
     def test_delete_section(self):
-        assert self.responce_delete_section.status_code == 200
+        assert self.response_delete_section.status_code == 200
         print(json.dumps(
             CompareHelper.get_all_products().json(),
             indent=5
@@ -65,7 +65,7 @@ class TestDeleteCompare:
 
     # очистить сравнение
     def test_delete_compare(self):
-        assert self.responce_delete.status_code == 200
+        assert self.response_delete.status_code == 200
         print(json.dumps(
             CompareHelper.get_all_products().json(),
             indent=5

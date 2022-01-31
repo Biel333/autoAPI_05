@@ -14,6 +14,6 @@ class AuthHelper:
         }
         return request(
             method='POST',
-            rout='/api/v2/oauth/token',
+            route='/api/v2/oauth/token',
             data=body
         )
