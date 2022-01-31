@@ -8,8 +8,7 @@ class TestCompareAdd:
         # добавление товаров  в сравнение
         self.responce_add = CompareHelper.add_product("601520")
         CompareHelper.add_product("619098")
-        CompareHelper.add_product("619045")
-        CompareHelper.add_product("623277")
+
         self.responce_get_all_products = CompareHelper.get_all_products()
 
     # тест добавить товар в сравнение
