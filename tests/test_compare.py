@@ -1,20 +1,33 @@
+import random
+from decouple import config
 from helpers.compare_helper import CompareHelper
 import json
+import os
 
 
 # ДОБАВЛЕНИЕ В СРАВНЕНИЕ
 class TestCompareAdd:
     def setup_class(self):
+        # list_products_id = json.loads(config("PRODUCTS_ID_OF_PHONES"))
+        # self.product_id = random.choice(list_products_id)
         # добавление товаров  в сравнение
         self.response_add = CompareHelper.add_product("601520", auth=True)
-        CompareHelper.add_product("619098", auth=True)
-
         self.response_get_all_products = CompareHelper.get_all_products(auth=True)
+        print(json.dumps(
+            self.response_get_all_products.json(),
+            indent=5
+        ))
+
+        print(json.dumps(
+            self.response_add.json(),
+            indent=5
+        ))
 
     # тест добавить товар в сравнение
     def test_add_product(self):
         assert self.response_add.status_code == 200 and \
                self.response_get_all_products.json()["result"]["ITEMS"][0]["ID"] == "601520"
+
 
         print(json.dumps(
             self.response_get_all_products.json(),
@@ -23,15 +36,14 @@ class TestCompareAdd:
 
     # очищение сравнения
     def teardown_class(self):
-        CompareHelper.delete_compare()
-
+        CompareHelper.delete_compare(auth=True)
 
 # УДАЛЕНИЕ ИЗ СРАВНЕНИЯ
 class TestDeleteCompare:
     def setup_class(self):
-        CompareHelper.add_product("619098")
-        CompareHelper.add_product("619045")
-        CompareHelper.add_product("601520")
+        # CompareHelper.add_product("619098")
+        # CompareHelper.add_product("619045")
+        # CompareHelper.add_product("601520")
 
         self.response_delete_product = CompareHelper.delete_product("601520")
         products = ["619098", "619045"]
@@ -71,13 +83,12 @@ class TestDeleteCompare:
             indent=5
         ))
 
-
 # ПОЛУЧИТЬ СРАВНЕНИЕ
 class TestCompareGet:
     def setup_class(self):
-        CompareHelper.add_product("619098")
-        CompareHelper.add_product("619045")
-        CompareHelper.add_product("601520")
+        # CompareHelper.add_product("619098")
+        # CompareHelper.add_product("619045")
+        # CompareHelper.add_product("601520")
 
         self.responce_get_section = CompareHelper.get_section()
         self.responce_get_section_list = CompareHelper.get_section_list()
