@@ -10,6 +10,23 @@ class CompareHelper:
             route=f'/api/v1/compare/{productId}?show_entity=',
             authorization=auth)
 
+    @staticmethod
+    def get_all_products_compare(auth=False):
+        return request(
+            method='GET',
+            route='/api/v1/compare/products',
+            authorization=auth)
+
+    # получить id товаров сравнения
+    # def get_list_products_id_of_compare(self, auth=False):
+    #     response = self.get_all_products_compare(auth=auth)
+    #     body = response.json()
+    #     list_products_id = []
+    #     for i in body["result"]["ITEMS"]:
+    #         list_products_id.append(i["ID"])
+    #
+    #     return list_products_id
+
     # получить структуру сравнения
     @staticmethod
     def get_section(auth=False):
@@ -22,9 +39,9 @@ class CompareHelper:
     @staticmethod
     def get_section_list(auth=False):
         return request(
-        method='GET',
-        route='/api/v1/compare/sections',
-        authorization=auth)
+            method='GET',
+            route='/api/v1/compare/sections',
+            authorization=auth)
 
     # получить все товары из сравнения
     @staticmethod
